@@ -27,6 +27,7 @@ page 60280 "Short Leave Request Card"
                     ApplicationArea = all;
                     // Editable = EditBool;
                     ShowMandatory = true;
+                    Editable = SetEditable;
                 }
                 field("Employee Name"; Rec."Employee Name")
                 {
@@ -366,6 +367,11 @@ page 60280 "Short Leave Request Card"
     begin
         SetControlVisibility;
         EditBool := FALSE;
+        if "WorkFlow Status" = "WorkFlow Status"::Open then
+            SetEditable := true
+        else
+            SetEditable := false;
+
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
@@ -393,6 +399,7 @@ page 60280 "Short Leave Request Card"
         EmailNote: Codeunit "Email_Confirmation";
         i: Integer;
         PostedBoolG: Boolean;
+        SetEditable: Boolean;
 
     local procedure SetControlVisibility()
     begin
